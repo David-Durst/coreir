@@ -37,12 +37,11 @@ namespace CoreIR {
             Module* mainModule = c->getGlobal()->newModuleDecl("mainMapNMulTest", mainModuleType);
             ModuleDef* def = mainModule->newModuleDef();
 
-            RecordType* zippedType = c->Record({
-                    {"el0", c->BitIn()->Arr(width)},
-                    {"el1", c->BitIn()->Arr(width)}
-                });
             Type* twoInZippedOneOutGenType = c->Record({
-                    {"in",zippedType},
+                    {"in",c->Record({
+                                {"el0", c->BitIn()->Arr(width)},
+                                {"el1", c->BitIn()->Arr(width)}
+                            })},
                     {"out",c->Bit()->Arr(width)}
                 });
 
@@ -64,8 +63,6 @@ namespace CoreIR {
     
             Values mapNParams({
                     {"parallelOperators", Const::make(c, parallelOperators)},
-                    {"inputType", Const::make(c, zippedType)},
-                    {"outputType", Const::make(c, c->Bit()->Arr(width))},
                     {"operator", Const::make(c, mul2Inputs)}
                 });
 
