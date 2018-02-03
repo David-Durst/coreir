@@ -135,7 +135,6 @@ namespace CoreIR {
 
             Values reduceNModArgs = {
                 {"numLayers", Const::make(c, numLayers)},
-                {"width", Const::make(c, width)},
                 {"operator", Const::make(c, add)}
             };
             
