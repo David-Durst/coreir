@@ -461,7 +461,50 @@ namespace CoreIR {
                 }
                 state.exeSequential();
             }
-        }
-        deleteContext(c);
+         }
+         
+         SECTION("testing pycoreir json") {
+             Namespace* common = CoreIRLoadLibrary_commonlib(c);
+
+             cout << "loading" << endl;
+             //if (!loadFromFile(c,"./sim_ready_sorter.json")) {
+             if (!loadFromFile(c,"./basic_pycoreir_arrofarr.json")) {
+                 cout << "Could not Load from json!!" << endl;
+                 c->die();
+             }
+
+             c->runPasses({"rungenerators","flattentypes","flatten","deletedeadinstances"});
+      
+             Module* m = g->getModule("Test");
+
+             assert(m != nullptr);
+
+             SimulatorState state(m);
+             state.setValue("self.I", BitVector(8, "10010"));
+
+             cout << "# of nodes in circuit = " << state.getCircuitGraph().getVerts().size() << endl;
+
+             BitVector one(16, "1");
+             BitVector nextIn(16, "0");
+
+             std::clock_t start, end;
+
+             start = std::clock();
+
+             state.execute();
+
+             end = std::clock();
+
+             std::cout << "Done. Time to simulate = "
+                       << (end - start) / (double)(CLOCKS_PER_SEC / 1000) << " ms"
+                       << std::endl;
+
+      
+             cout << "out = " << state.getBitVec("self.O_0") << endl;
+
+             REQUIRE(state.getBitVec("self.O_0") == BitVector(8, "10010"));
+         }
+             
+         deleteContext(c);
     }
 }

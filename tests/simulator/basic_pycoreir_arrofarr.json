@@ -1,0 +1,17 @@
+{"top":"global.Test",
+"namespaces":{
+  "global":{
+    "modules":{
+      "Test":{
+        "type":["Record",[
+          ["I",["Array",5,"BitIn"]],
+          ["O",["Array",1,["Array",5,"Bit"]]]
+        ]],
+        "connections":[
+          ["self.I","self.O.0"]
+        ]
+      }
+    }
+  }
+}
+}
