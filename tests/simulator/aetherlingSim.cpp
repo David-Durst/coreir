@@ -480,8 +480,13 @@ namespace CoreIR {
                          "deletedeadinstances"},
                  {"aetherlinglib", "commonlib", "mantle", "coreir", "global"});
 
+             auto x = aetherling->getModules();
 
-             Module* m = g->getModule("dehydrate");
+             for (auto el : x) {
+                 cout << "first: " << el.first << ", second: " << el.second << endl;
+             }
+
+             Module* m = aetherling->getModule("dehydrate");
 
              assert(m != nullptr);
 
