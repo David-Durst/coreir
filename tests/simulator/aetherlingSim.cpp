@@ -468,14 +468,18 @@ namespace CoreIR {
 
              cout << "loading" << endl;
              //if (!loadFromFile(c,"./sim_ready_sorter.json")) {
-             if (!loadFromFile(c,"./basic_pycoreir_arrofarr.json")) {
+             if (!loadFromFile(c,"./py_wrapper_result.json")) {
                  cout << "Could not Load from json!!" << endl;
                  c->die();
              }
 
-             c->runPasses({"rungenerators","flattentypes","flatten","deletedeadinstances"});
-      
-             Module* m = g->getModule("Test");
+             c->runPasses({"rungenerators", "verifyconnectivity-onlyinputs-noclkrst",
+                         "wireclocks-coreir", "flatten", "flattentypes", "verifyconnectivity",
+                         "deletedeadinstances"},
+                 {"aetherlinglib", "commonlib", "mantle", "coreir", "global"});
+
+
+             Module* m = g->getModule("dehydrate");
 
              assert(m != nullptr);
 
