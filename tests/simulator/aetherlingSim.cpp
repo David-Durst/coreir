@@ -465,6 +465,8 @@ namespace CoreIR {
          
          SECTION("testing pycoreir json") {
              Namespace* common = CoreIRLoadLibrary_commonlib(c);
+             Namespace* aetherling = CoreIRLoadLibrary_aetherlinglib(c);
+
 
              cout << "loading" << endl;
              //if (!loadFromFile(c,"./sim_ready_sorter.json")) {
