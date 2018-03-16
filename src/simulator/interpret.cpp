@@ -1507,7 +1507,6 @@ namespace CoreIR {
   SimulatorState::getValueByOriginalName(const std::vector<std::string>& instanceList,
                                          const std::vector<std::string>& portSelectList) {
     string name = reconstructName(instanceList, portSelectList);
-    cout << "full name: " << name << endl;
     return getValueByOriginalName(name);
   }
 
